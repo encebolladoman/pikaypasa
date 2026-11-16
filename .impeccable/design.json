@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T00:00:00Z",
+  "title": "Design System: PikayPasa",
+  "seededFrom": { "seed": "dbf262acf07b2fae", "form": "The roll-up shutter and service window", "pick": "IMPECCABLE'S PICK" },
+  "extensions": {
+    "colorMeta": {
+      "negro": { "role": "neutral", "displayName": "Night Black", "canonical": "#111111", "tonalRamp": ["#0a0a0a", "#111111", "#1f1f1f", "#2e2e2e", "#4a4a4a", "#6e6e6e", "#a3a3a3", "#e0e0e0"] },
+      "naranja": { "role": "primary", "displayName": "Crisp Orange", "canonical": "#FF6A13", "tonalRamp": ["#3d1503", "#6b2507", "#a3380a", "#d9500e", "#FF6A13", "#ff8c4d", "#ffb489", "#ffe0cc"] },
+      "naranja-osc": { "role": "secondary", "displayName": "Burnt Counter Orange", "canonical": "#C2410C", "tonalRamp": ["#2e0f03", "#561d06", "#8a2f09", "#C2410C", "#e0602a", "#f08c5e", "#f7b897", "#fde3d4"] },
+      "hueso": { "role": "neutral", "displayName": "Bone", "canonical": "#EDE6DA", "tonalRamp": ["#2b2925", "#4a4640", "#6e685f", "#958d82", "#bab2a5", "#d7cfc2", "#EDE6DA", "#f8f5ef"] },
+      "acero": { "role": "neutral", "displayName": "Shutter Steel", "canonical": "#2A2826", "tonalRamp": ["#191817", "#2A2826", "#3D3A36", "#4a4642", "#625d58", "#837d77", "#aaa59f", "#d6d2cd"] },
+      "acero-sombra": { "role": "neutral", "displayName": "Steel Shadow", "canonical": "#191817" },
+      "acero-luz": { "role": "neutral", "displayName": "Steel Highlight", "canonical": "#3D3A36" },
+      "hueso-suave": { "role": "neutral", "displayName": "Bone Soft", "canonical": "rgba(237, 230, 218, 0.74)" },
+      "hueso-linea": { "role": "neutral", "displayName": "Bone Line", "canonical": "rgba(237, 230, 218, 0.22)" },
+      "negro-suave": { "role": "neutral", "displayName": "Black Soft", "canonical": "rgba(17, 17, 17, 0.72)" },
+      "negro-linea": { "role": "neutral", "displayName": "Black Line", "canonical": "rgba(17, 17, 17, 0.2)" }
+    },
+    "typographyMeta": {
+      "logo": { "displayName": "Logo", "purpose": "The PIKAYPASA wordmark only, PIKAY bone and PASA orange on black." },
+      "display": { "displayName": "Display", "purpose": "The line painted on the shutter." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles." },
+      "title": { "displayName": "Title", "purpose": "Product names." },
+      "price": { "displayName": "Price", "purpose": "Prices; the largest element of each product row, tabular numerals." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and explanatory copy, 46-60ch." },
+      "label": { "displayName": "Label", "purpose": "Buttons, chips, nav links, option legends, +18 seal." }
+    },
+    "materials": [
+      { "name": "shutter-slats", "value": "repeating-linear-gradient(180deg, #2A2826 0, #2A2826 13px, #3D3A36 13px, #3D3A36 14px, #191817 14px, #191817 18px)", "purpose": "The roll-up shutter in the first view and the footer." },
+      { "name": "window-glow", "value": "radial-gradient(130% 100% at 50% 100%, rgba(237,230,218,0.62) 0%, rgba(237,230,218,0.2) 45%, rgba(237,230,218,0) 78%), #111111", "purpose": "Light from the open window spilling under the shutter; removed when closed." },
+      { "name": "window-frame", "value": "border-left/right: 6px (12px >=760px) solid #2A2826; border-bottom: 16px solid #2A2826", "purpose": "Steel jambs and sill around the bone window." }
+    ],
+    "shadows": [
+      { "name": "hanging-tag", "value": "0 6px 16px rgba(0, 0, 0, 0.45)", "purpose": "The state tag hanging from the shutter." },
+      { "name": "float-street", "value": "0 6px 18px rgba(0, 0, 0, 0.5)", "purpose": "Floating WhatsApp button." },
+      { "name": "order-bar", "value": "0 -8px 24px rgba(0, 0, 0, 0.5)", "purpose": "Order bar over the page bottom." },
+      { "name": "shutter-text", "value": "text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55)", "purpose": "Display line legibility over slats." },
+      { "name": "closed-window", "value": "inset 0 28px 28px -16px rgba(17, 17, 17, 0.28)", "purpose": "Shadow of the lowered shutter inside the window." }
+    ],
+    "motion": [
+      { "name": "sube", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The only easing for structural motion; everything rises or drops." },
+      { "name": "shutter-rise", "value": "680ms translateY(132px -> 0)", "purpose": "Shutter rolls up on load when open; skipped with reduced motion." },
+      { "name": "tag-drop", "value": "520ms, 420ms delay, translateY(-18px -> 0) + fade", "purpose": "State tag settles after the shutter." },
+      { "name": "chrome-reveal", "value": "320ms translateY", "purpose": "Section nav drops from the top and WhatsApp button rises from the bottom after the shutter is passed." },
+      { "name": "bar-enter", "value": "380ms translateY(100% -> 0)", "purpose": "Order bar rises when the cart gets its first item (phone)." },
+      { "name": "total-pulse", "value": "420ms translateY(6px -> 0)", "purpose": "Total nudges up on each add." },
+      { "name": "ticket-rise", "value": "420ms translateY(40% -> 0) + opacity 0.4 -> 1", "purpose": "Order panel slides up from the counter." },
+      { "name": "state-fade", "value": "140-160ms ease", "purpose": "Color and border changes on buttons, chips, nav links." }
+    ],
+    "breakpoints": [
+      { "name": "desk", "value": "760px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Thick flat orange button with black text; the main action on black.",
+      "html": "<button class=\"ds-btn\">Ver menú</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 22px; background: var(--naranja, #FF6A13); color: var(--negro, #111111); border: 0; border-radius: 3px; font-family: Sora, system-ui, sans-serif; font-weight: 800; font-size: 1.0625rem; line-height: 1.15; letter-spacing: -0.01em; cursor: pointer; transition: background-color 160ms ease, transform 120ms ease; } .ds-btn:hover { background: #FF7F33; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid #FF6A13; outline-offset: 2px; }"
+    },
+    {
+      "name": "Button on Bone",
+      "kind": "button",
+      "refersTo": "button-on-bone",
+      "description": "Inside the window and the order ticket the button inverts to black with bone text.",
+      "html": "<div class=\"ds-bone\"><button class=\"ds-btn-bone\">Enviar pedido por WhatsApp</button></div>",
+      "css": ".ds-bone { background: #EDE6DA; padding: 16px; } .ds-btn-bone { min-height: 60px; padding: 14px 26px; background: #111111; color: #EDE6DA; border: 0; border-radius: 3px; font-family: Sora, system-ui, sans-serif; font-weight: 800; font-size: 1.1875rem; cursor: pointer; transition: background-color 160ms ease; } .ds-btn-bone:hover { background: #2b2b2b; } .ds-btn-bone:focus-visible { outline: 3px solid #C2410C; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Light 'Elegir y agregar' button: 2px currentColor border, fills with the opposite ink on hover.",
+      "html": "<button class=\"ds-btn-outline\">Elegir y agregar</button>",
+      "css": ".ds-btn-outline { min-height: 44px; padding: 8px 16px; background: transparent; color: #EDE6DA; border: 2px solid currentColor; border-radius: 3px; font-family: Sora, system-ui, sans-serif; font-weight: 800; font-size: 0.9375rem; cursor: pointer; transition: background-color 160ms ease, color 160ms ease; } .ds-btn-outline:hover { background: #EDE6DA; color: #111111; } .ds-btn-outline:focus-visible { outline: 3px solid #FF6A13; outline-offset: 2px; }"
+    },
+    {
+      "name": "Option Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Radio-backed option chip; selected fills with the ground's opposite ink.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip ds-chip-on\">BBQ</span><span class=\"ds-chip\">Natural</span></div>",
+      "css": ".ds-chips { display: flex; gap: 8px; background: #111111; padding: 12px; } .ds-chip { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 2px solid rgba(237,230,218,0.22); border-radius: 3px; color: #EDE6DA; font-family: Sora, system-ui, sans-serif; font-size: 0.9375rem; cursor: pointer; transition: background-color 140ms ease, border-color 140ms ease; } .ds-chip:hover { border-color: rgba(237,230,218,0.74); } .ds-chip-on { background: #EDE6DA; border-color: #EDE6DA; color: #111111; font-weight: 800; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Order-ticket field on bone: 2px black border, dark orange focus.",
+      "html": "<label class=\"ds-campo\"><span>Tu nombre</span><input class=\"ds-input\" placeholder=\"Ej.: Mz. 12 Villa 4\"></label>",
+      "css": ".ds-campo { display: grid; gap: 6px; background: #EDE6DA; color: #111111; padding: 16px; font-family: Sora, system-ui, sans-serif; font-weight: 800; } .ds-input { min-height: 52px; padding: 12px 14px; background: transparent; color: #111111; border: 2px solid #111111; border-radius: 3px; font: 400 1rem Sora, system-ui, sans-serif; } .ds-input::placeholder { color: rgba(17,17,17,0.62); } .ds-input:focus { outline: 3px solid #C2410C; outline-offset: 1px; }"
+    },
+    {
+      "name": "Section Nav",
+      "kind": "nav",
+      "refersTo": "section-nav-link",
+      "description": "Sticky rail of bordered section links, shown only after the shutter is passed; current section fills bone.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-a\" aria-current=\"true\">Combos</a><a class=\"ds-nav-a\">Boneless</a><a class=\"ds-nav-a\">Cómo pedir</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 8px; padding: 10px 16px; background: #111111; border-bottom: 2px solid rgba(237,230,218,0.22); } .ds-nav-a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 2px solid rgba(237,230,218,0.22); border-radius: 3px; color: #EDE6DA; text-decoration: none; font: 800 0.9375rem Sora, system-ui, sans-serif; white-space: nowrap; transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease; cursor: pointer; } .ds-nav-a:hover { border-color: rgba(237,230,218,0.74); } .ds-nav-a[aria-current] { background: #EDE6DA; color: #111111; border-color: #EDE6DA; } .ds-nav-a:focus-visible { outline: 3px solid #FF6A13; outline-offset: 2px; }"
+    },
+    {
+      "name": "Product Row in the Window",
+      "kind": "card",
+      "refersTo": "",
+      "description": "Rule-topped product row on bone: name, big dark-orange price, description. No card.",
+      "html": "<div class=\"ds-ventanilla\"><div class=\"ds-item\"><div class=\"ds-cabeza\"><span class=\"ds-nombre\">Combo Pareja</span><span class=\"ds-precio\">$8.99</span></div><p class=\"ds-trae\">Boneless 8 + Tenders 3 + 2 aderezos</p></div></div>",
+      "css": ".ds-ventanilla { background: #EDE6DA; color: #111111; padding: 16px; border-left: 6px solid #2A2826; border-right: 6px solid #2A2826; border-bottom: 16px solid #2A2826; font-family: Sora, system-ui, sans-serif; } .ds-item { border-top: 2px solid #111111; padding: 20px 0 22px; } .ds-cabeza { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; } .ds-nombre { font-weight: 800; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.025em; } .ds-precio { font-weight: 800; font-size: 2rem; line-height: 1; letter-spacing: -0.03em; color: #C2410C; font-variant-numeric: tabular-nums; } .ds-trae { margin: 6px 0 0; color: rgba(17,17,17,0.72); }"
+    },
+    {
+      "name": "Shutter with State Tag",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Signature: CSS slat shutter with the display line, ending in a steel edge, and the bone state tag hanging on two wires.",
+      "html": "<div class=\"ds-frente\"><div class=\"ds-reja\"><p class=\"ds-lema\">Boneless, tenders y micheladas</p></div><div class=\"ds-borde\"></div><p class=\"ds-cartel\"><span class=\"ds-punto\"></span>Abierto hasta las 11 pm</p></div>",
+      "css": ".ds-frente { background: radial-gradient(130% 100% at 50% 100%, rgba(237,230,218,0.62) 0%, rgba(237,230,218,0.2) 45%, rgba(237,230,218,0) 78%), #111111; padding-bottom: 24px; font-family: Sora, system-ui, sans-serif; } .ds-reja { background: repeating-linear-gradient(180deg, #2A2826 0, #2A2826 13px, #3D3A36 13px, #3D3A36 14px, #191817 14px, #191817 18px); padding: 34px 16px 30px; } .ds-lema { margin: 0; font-weight: 800; font-size: 2rem; line-height: 1.02; letter-spacing: -0.035em; color: #EDE6DA; text-shadow: 0 2px 10px rgba(0,0,0,0.55); } .ds-borde { height: 22px; background: linear-gradient(180deg, #3D3A36, #2A2826 60%, #191817); } .ds-cartel { position: relative; display: inline-flex; align-items: center; gap: 10px; margin: 22px 16px 0; padding: 12px 16px; background: #EDE6DA; color: #111111; font-weight: 800; border-radius: 3px; box-shadow: 0 6px 16px rgba(0,0,0,0.45); } .ds-cartel::before, .ds-cartel::after { content: ''; position: absolute; top: -22px; width: 2px; height: 22px; background: rgba(237,230,218,0.74); } .ds-cartel::before { left: 22px; } .ds-cartel::after { right: 22px; } .ds-punto { width: 10px; height: 10px; border-radius: 50%; background: #C2410C; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Shutter and the Window",
+    "overview": "The page is the door of the local at night. A black street, a painted sign band with the PIKAYPASA wordmark, a corrugated steel shutter drawn in CSS stripes, and below it the one lit thing on the block: a bone counter framed in steel where the combos are set in black type with big dark-orange prices. Everything else on the page is the night around that window. When the local is open the shutter rolls up on load; when it is closed it stays down to the hanging state tag and the light goes out.\n\nThe system is dense, flat and loud in the way a street sign is loud: huge tight Sora 800 headings, prices as the largest thing in each row, thick flat buttons, 2px rules between items instead of cards. There are no photos and no decoration that is not part of the storefront itself (shutter slats, handle, sill, jambs, the hanging tag on its two wires). Every ground carries exactly two inks.\n\nIt refuses the default fast-food page: no hero over a grid of rounded product cards, no gradients-as-decoration, no third accent color.",
+    "keyCharacteristics": [
+      "Black ground, one bone window; the window is the only light.",
+      "Two inks per ground: bone and orange on black, black and dark orange on bone.",
+      "Shutter slats, steel jambs and a steel sill are the frame language.",
+      "Lists separated by thick 2px rules, never cards.",
+      "Square-cut corners (3px), thick flat buttons, 44px minimum targets.",
+      "Motion is vertical only: things rise and drop like the shutter."
+    ],
+    "rules": [
+      { "name": "The Two Inks Rule", "body": "On black, only bone and orange. On bone, only black and dark orange. Alpha tints of the ground's own ink are allowed for secondary text and rules; a third hue is not.", "section": "colors" },
+      { "name": "The One Light Rule", "body": "Bone is a ground only where something is lit: the window, the hanging tag, the order ticket. Every other section stays black.", "section": "colors" },
+      { "name": "The Orange Is Not Text On Bone Rule", "body": "Bright orange (#FF6A13) never sets text on bone; it switches to dark orange.", "section": "colors" },
+      { "name": "The Sign Only Rule", "body": "Anton is the logo. Headings, numbers and buttons are Sora.", "section": "typography" },
+      { "name": "The Price Is The Headline Rule", "body": "In every product row the price is at least as large as the name, in tabular numerals, in the ground's orange.", "section": "typography" },
+      { "name": "The No Cards Rule", "body": "Content sits on its ground separated by 2px rules. Nothing is lifted into a shadowed card.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep two inks per ground: bone and orange on black, black and dark orange (#C2410C) on bone.",
+      "Do separate list items with 2px rules (bone line on black, black on bone).",
+      "Do frame any bone window with steel jambs and a sill; draw the shutter with the 13/1/4px slat stripe.",
+      "Do make prices the largest element in a product row, Sora 800 with tabular numerals.",
+      "Do keep every target at least 44px tall and buttons 52px or 60px.",
+      "Do move things only on the vertical axis (rise, drop, slide up), with the `cubic-bezier(0.16, 1, 0.3, 1)` ease, and drop the motion under reduced motion.",
+      "Do keep the sticky section nav and floating WhatsApp hidden until the visitor scrolls past the shutter."
+    ],
+    "donts": [
+      "Don't use Anton for anything but the PIKAYPASA wordmark.",
+      "Don't set bright orange text on bone.",
+      "Don't introduce a third hue, a gradient fill on a component, or a rounded card.",
+      "Don't round corners beyond 3px on buttons, chips, fields or panels.",
+      "Don't animate horizontally, scale, or rotate.",
+      "Don't add invented icons or decoration outside the storefront materials (shutter, steel, tag, rules); icons are inline stroked SVG, and the WhatsApp mark is the only brand glyph."
+    ]
+  }
+}

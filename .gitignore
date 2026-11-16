@@ -1,0 +1,10 @@
+# Archivos de pruebas del navegador
+.playwright-mcp/
+
+# Configuración local de impeccable (solo de esta computadora)
+.impeccable/config.local.json
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
