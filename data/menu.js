@@ -37,8 +37,7 @@ window.PIKAYPASA = {
   },
 
   /* ---------- Interruptores ---------- */
-  mostrarAlcohol: true,  // false = oculta micheladas, cervezas y combos con chela
-  recargoBBQ: 0,         // cuánto cuesta bañar en BBQ (0 = gratis). Ej.: 0.50
+  mostrarAlcohol: true,  // false = oculta micheladas, cervezas y combos con chela (agua y jugos siguen)
 
   /* ---------- Envío por urbanización ---------- */
   // Para agregar una urbanización, copia una línea y cambia id, nombre y costo.
@@ -53,52 +52,63 @@ window.PIKAYPASA = {
   aderezos: ["BBQ", "Hot honey", "Ranch", "Clásica"],
   escarchados: ["clásico", "picante"],
 
+  // Sabores para boneless y alitas.
+  // texto = como se dice para los boneless; textoAlitas = como se dice para las alitas.
+  // recargo = cuánto cuesta ese sabor (0 = gratis). Ej.: recargo: 0.50
+  sabores: [
+    { id: "natural",       texto: "naturales",                textoAlitas: "naturales",                recargo: 0 },
+    { id: "bbq",           texto: "bañados en BBQ",           textoAlitas: "bañadas en BBQ",           recargo: 0 },
+    { id: "honey-mustard", texto: "bañados en honey mustard", textoAlitas: "bañadas en honey mustard", recargo: 0 }
+  ],
+
   /* ---------- Combos ---------- */
   // aderezos: cuántos aderezos trae (el cliente los elige)
-  // preparacion: true = se puede pedir natural o bañado en BBQ
+  // preparacion: qué parte del combo elige sabor: ["boneless"], ["alitas"] o ["boneless", "alitas"]
   // escarchado: true = trae micheladas y se elige el escarchado
-  // porSeparado: precio si se compra suelto (se muestra tachado)
+  // porSeparado: precio si se compra suelto (se muestra tachado con el ahorro)
   // alcohol: true = se oculta si mostrarAlcohol es false
   combos: [
     { id: "mixto",  nombre: "Mixto",
-      trae: "5 boneless + 3 tenders + papas + 2 aderezos",
-      precio: 7.50, aderezos: 2, preparacion: true },
+      trae: "5 boneless + 6 alitas + papas + 2 aderezos",
+      precio: 8.49, porSeparado: 8.98, aderezos: 2, preparacion: ["boneless", "alitas"] },
 
     { id: "pareja", nombre: "Combo Pareja",
-      trae: "Boneless 8 + Tenders 3 + 2 aderezos",
-      precio: 8.99, aderezos: 2, preparacion: true },
+      trae: "Boneless 8 + Alitas 6, cada uno con papas y aderezo",
+      precio: 9.99, porSeparado: 10.74, aderezos: 2, preparacion: ["boneless", "alitas"] },
 
     { id: "parche", nombre: "Combo Parche", personas: 4,
-      trae: "Boneless 10 + Tenders 7 + 4 aderezos",
-      precio: 14.99, aderezos: 4, preparacion: true }
+      trae: "Boneless 10 + Alitas 12 + papas + 4 aderezos",
+      precio: 15.99, porSeparado: 18.55, aderezos: 4, preparacion: ["boneless", "alitas"] }
   ],
 
   combosChela: [
     { id: "boneless-chela", nombre: "Boneless + Chela",
       trae: "Boneless 5 + 1 michelada Coronita",
-      precio: 5.75, porSeparado: 6.49, aderezos: 1, preparacion: true, escarchado: true, alcohol: true },
+      precio: 5.75, porSeparado: 6.49, aderezos: 1, preparacion: ["boneless"], escarchado: true, alcohol: true },
 
-    { id: "tenders-chela", nombre: "Tenders + Chela",
-      trae: "Tenders 3 + 1 michelada Coronita",
-      precio: 5.99, porSeparado: 6.75, aderezos: 1, preparacion: true, escarchado: true, alcohol: true },
+    { id: "alitas-chela", nombre: "Alitas + Chela",
+      trae: "Alitas 6 + 1 michelada Coronita",
+      precio: 6.75, porSeparado: 7.49, aderezos: 1, preparacion: ["alitas"], escarchado: true, alcohol: true },
 
     { id: "mixto-chela", nombre: "Mixto + Chela",
       trae: "Mixto + 1 michelada Coronita",
-      precio: 9.50, porSeparado: 10.00, aderezos: 2, preparacion: true, escarchado: true, alcohol: true },
+      precio: 10.25, porSeparado: 10.99, aderezos: 2, preparacion: ["boneless", "alitas"], escarchado: true, alcohol: true },
 
     { id: "pareja-chelera", nombre: "Pareja Chelera",
       trae: "Combo Pareja + 2 micheladas Coronita",
-      precio: 12.99, porSeparado: 13.99, aderezos: 2, preparacion: true, escarchado: true, alcohol: true },
+      precio: 13.99, porSeparado: 14.99, aderezos: 2, preparacion: ["boneless", "alitas"], escarchado: true, alcohol: true },
 
     { id: "parche-chelero", nombre: "Parche Chelero", personas: 4,
       trae: "Combo Parche + 4 micheladas Coronita",
-      precio: 22.99, porSeparado: 24.99, aderezos: 4, preparacion: true, escarchado: true, alcohol: true }
+      precio: 23.99, porSeparado: 25.99, aderezos: 4, preparacion: ["boneless", "alitas"], escarchado: true, alcohol: true }
   ],
 
   /* ---------- Menú ---------- */
+  // mitadYMitad: true = en esa porción se pueden pedir dos sabores (mitad y mitad)
+  // imagen: (opcional) ruta de una foto, ej.: "img/boneless.webp" (ancho máximo 800 px)
   boneless: {
     id: "boneless", nombre: "Boneless",
-    trae: "Con papas y 1 aderezo de 2 oz gratis.",
+    trae: "Con papas y 1 aderezo de 2 oz gratis. Naturales, bañados en BBQ o en honey mustard.",
     porciones: [
       { nombre: "5 piezas",  precio: 3.99 },
       { nombre: "8 piezas",  precio: 5.75 },
@@ -107,13 +117,13 @@ window.PIKAYPASA = {
     aderezos: 1, preparacion: true
   },
 
-  tenders: {
-    id: "tenders", nombre: "Tenders",
-    trae: "Con papas y 1 aderezo de 2 oz gratis.",
+  alitas: {
+    id: "alitas", nombre: "Alitas", femenino: true,
+    trae: "Con papas y 1 aderezo de 2 oz gratis. Naturales, bañadas en BBQ o en honey mustard.",
     porciones: [
-      { nombre: "3 piezas", precio: 4.25 },
-      { nombre: "5 piezas", precio: 6.25 },
-      { nombre: "7 piezas", precio: 7.99 }
+      { nombre: "6 piezas",  precio: 4.99 },
+      { nombre: "12 piezas", precio: 9.80 },
+      { nombre: "24 piezas + cola 1 L", precio: 19.80, mitadYMitad: true }
     ],
     aderezos: 1, preparacion: true
   },
@@ -121,6 +131,12 @@ window.PIKAYPASA = {
   extras: [
     { id: "aderezo-extra", nombre: "Aderezo extra", trae: "2 oz, del sabor que quieras.",
       precio: 1.00, sabor: true },
+
+    { id: "agua", nombre: "Agua", trae: "",
+      precio: 0.50 },
+
+    { id: "jugo", nombre: "Jugos", trae: "Pregunta los sabores del día.",
+      precio: 0.50 },
 
     { id: "michelada", nombre: "Michelada Coronita", trae: "Escarchado clásico o picante.",
       precio: 2.50, escarchado: true, alcohol: true },

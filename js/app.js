@@ -47,26 +47,57 @@
   var catalogo = {};
   var combos = D.combos || [];
   var combosChela = alcoholVisible ? (D.combosChela || []) : [];
-  var principales = [D.boneless, D.tenders].filter(Boolean);
+  var principales = [D.boneless, D.alitas].filter(Boolean);
   var extras = (D.extras || []).filter(function (p) { return alcoholVisible || !p.alcohol; });
   combos.concat(combosChela).forEach(function (p) { p.tipo = 'combo'; catalogo[p.id] = p; });
   principales.concat(extras).forEach(function (p) { p.tipo = 'producto'; catalogo[p.id] = p; });
+
+  /* ---------- sabores (naturales, BBQ, honey mustard) ---------- */
+  var SABORES = D.sabores && D.sabores.length ? D.sabores : [{ id: 'natural', texto: 'naturales', textoAlitas: 'naturales', recargo: 0 }];
+  function saborDe(id) { return SABORES.filter(function (s) { return s.id === id; })[0] || SABORES[0]; }
+  function textoSabor(s, femenino) { return femenino ? (s.textoAlitas || s.texto) : s.texto; }
+  function capital(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+
+  // Qué partes del producto eligen sabor. Producto suelto: una; combo: boneless y/o alitas.
+  function partesSabor(p) {
+    if (!p.preparacion) return [];
+    if (p.tipo === 'producto') return [{ campo: 'prep', femenino: !!p.femenino, legend: 'Sabor' }];
+    return [].concat(p.preparacion).map(function (parte) {
+      var alitas = parte === 'alitas';
+      return { campo: 'prep-' + parte, parte: parte, femenino: alitas,
+        legend: alitas ? 'Sabor de las alitas' : 'Sabor de los boneless' };
+    });
+  }
+
+  function porcionDe(p, cfg) { return p.porciones ? p.porciones[cfg.porcion || 0] : null; }
 
   function tieneOpciones(p) {
     return !!(p.porciones || p.aderezos || p.preparacion || p.escarchado || p.sabor);
   }
 
   function precioUnidad(p, cfg) {
-    var base = p.porciones ? p.porciones[cfg.porcion || 0].precio : p.precio;
-    var c = centavos(base);
-    if (p.preparacion && cfg.prep === 'bbq') c += centavos(D.recargoBBQ);
+    var po = porcionDe(p, cfg);
+    var c = centavos(po ? po.precio : p.precio);
+    partesSabor(p).forEach(function (parte) {
+      var r = centavos(saborDe(cfg[parte.campo]).recargo);
+      if (parte.campo === 'prep' && cfg.prep2) r = Math.max(r, centavos(saborDe(cfg.prep2).recargo));
+      c += r;
+    });
     return c;
   }
 
   function nombreLinea(p, cfg) {
-    var nombre = p.porciones ? p.nombre + ' ' + p.porciones[cfg.porcion || 0].nombre : p.nombre;
+    var po = porcionDe(p, cfg);
+    var nombre = po ? p.nombre + ' ' + po.nombre : p.nombre;
     var det = [];
-    if (p.preparacion) det.push(cfg.prep === 'bbq' ? 'bañados en BBQ' : 'naturales');
+    partesSabor(p).forEach(function (parte) {
+      var t = textoSabor(saborDe(cfg[parte.campo]), parte.femenino);
+      if (parte.campo === 'prep' && cfg.prep2 && cfg.prep2 !== cfg.prep && po && po.mitadYMitad) {
+        var mitad = Math.round((parseInt(po.nombre, 10) || 0) / 2);
+        t = mitad + ' ' + t + ' y ' + mitad + ' ' + textoSabor(saborDe(cfg.prep2), parte.femenino);
+      }
+      det.push(parte.parte ? parte.parte + ' ' + t : t);
+    });
     if (p.escarchado) det.push((p.tipo === 'combo' ? 'micheladas con escarchado ' : 'escarchado ') + cfg.escarchado);
     if (p.sabor) det.push(cfg.sabor);
     return { nombre: nombre, detalle: det.join(', '), aderezos: cfg.aderezos || [] };
@@ -156,21 +187,31 @@
       }
       h += '</div></fieldset>';
     }
-    if (p.preparacion) {
-      var recargo = centavos(D.recargoBBQ);
-      h += grupoBotones('prep', p.tipo === 'combo' ? 'Boneless y tenders' : 'Cómo los quieres', [
-        { valor: 'natural', html: 'Naturales' },
-        { valor: 'bbq', html: 'Bañados en BBQ' + (recargo ? ' <b>+' + dinero(recargo) + '</b>' : '') }
-      ], 0);
-    }
+    partesSabor(p).forEach(function (parte) {
+      h += grupoBotones(parte.campo, parte.legend, chipsSabor(parte.femenino), 0);
+      // Porciones grandes: mitad y mitad (segundo sabor opcional)
+      var mitad = p.porciones && p.porciones.filter(function (po) { return po.mitadYMitad; })[0];
+      if (parte.campo === 'prep' && mitad) {
+        var n = Math.round((parseInt(mitad.nombre, 10) || 0) / 2);
+        h += '<div data-mitad hidden>' + grupoBotones('prep2', 'Sabor de la otra mitad (' + n + ')',
+          [{ valor: '', html: 'El mismo' }].concat(chipsSabor(parte.femenino)), 0) + '</div>';
+      }
+    });
     if (p.escarchado) {
       h += grupoBotones('escarchado', p.tipo === 'combo' ? 'Escarchado de las micheladas' : 'Escarchado',
-        D.escarchados.map(function (e) { return { texto: e, html: e.charAt(0).toUpperCase() + e.slice(1) }; }), 0);
+        D.escarchados.map(function (e) { return { texto: e, html: capital(e) }; }), 0);
     }
     if (p.sabor) {
-      h += grupoBotones('sabor', 'Sabor', D.aderezos.map(function (a) { return { texto: a, html: esc(a) }; }), 0);
+      h += grupoBotones('sabor', 'Aderezo', D.aderezos.map(function (a) { return { texto: a, html: esc(a) }; }), 0);
     }
     return h;
+  }
+
+  function chipsSabor(femenino) {
+    return SABORES.map(function (s) {
+      var r = centavos(s.recargo);
+      return { valor: s.id, html: esc(capital(textoSabor(s, femenino))) + (r ? ' <b>+' + dinero(r) + '</b>' : '') };
+    });
   }
 
   function leerCfg(p, form) {
@@ -181,7 +222,11 @@
       cfg.aderezos = [];
       for (var i = 0; i < p.aderezos; i++) cfg.aderezos.push(String(f.get('aderezo' + i) || D.aderezos[0]));
     }
-    if (p.preparacion) cfg.prep = f.get('prep') === 'bbq' ? 'bbq' : 'natural';
+    partesSabor(p).forEach(function (parte) {
+      cfg[parte.campo] = saborDe(String(f.get(parte.campo) || '')).id;
+    });
+    var po = porcionDe(p, cfg);
+    if (po && po.mitadYMitad && f.get('prep2')) cfg.prep2 = saborDe(String(f.get('prep2'))).id;
     if (p.escarchado) cfg.escarchado = String(f.get('escarchado') || D.escarchados[0]);
     if (p.sabor) cfg.sabor = String(f.get('sabor') || D.aderezos[0]);
     return cfg;
@@ -200,15 +245,15 @@
       : '';
     return '' +
       '<article class="item' + (plegable ? ' item-plegable' : '') + '" id="p-' + esc(p.id) + '" data-id="' + esc(p.id) + '">' +
+        (p.imagen ? '<img class="item-foto" src="' + esc(p.imagen) + '" alt="' + esc(p.nombre) + '" loading="lazy" decoding="async" width="800" height="600">' : '') +
         '<form class="item-form">' +
           '<div class="item-cabeza">' +
             '<h3 class="item-nombre">' + esc(p.nombre) + (p.personas ? ' <span class="item-personas">' + p.personas + ' personas</span>' : '') + '</h3>' +
             '<p class="item-precio">' + (p.porciones ? '<span class="item-desde">desde </span>' : '') + '<span data-precio>' + dinero(precio) + '</span></p>' +
           '</div>' +
-          (p.trae ? '<p class="item-trae">' + esc(p.trae) + (p.preparacion && p.tipo === 'producto' ? ' Naturales o bañados en BBQ.' : '') + '</p>' : '') +
+          (p.trae ? '<p class="item-trae">' + esc(p.trae) + '</p>' : '') +
           resumen +
           (ahorro > 0 ? '<p class="item-ahorro">Por separado <s>' + dinero(centavos(p.porSeparado)) + '</s> · ahorras ' + dinero(ahorro) + '</p>' : '') +
-          (p.alcohol && !p.porSeparado ? '<p class="item-18"><span class="sello-18">+18</span> Solo mayores de 18 años</p>' : '') +
           (opciones ? '<div class="item-opciones" id="' + idOpc + '"' + (plegable ? ' hidden' : '') + '>' + opciones + '</div>' : '') +
           '<div class="item-acciones">' +
             (plegable && opciones
@@ -225,7 +270,10 @@
     $('#lista-combos').innerHTML = combos.map(function (p) { return itemHTML(p, true); }).join('');
     $('#lista-chela').innerHTML = combosChela.map(function (p) { return itemHTML(p, true); }).join('');
     $('#menu-principal').innerHTML = principales.map(function (p) { return itemHTML(p, false); }).join('');
-    $('#lista-extras').innerHTML = extras.map(function (p) { return itemHTML(p, false); }).join('');
+    $('#lista-extras').innerHTML = extras.filter(function (p) { return !p.alcohol; })
+      .map(function (p) { return itemHTML(p, false); }).join('');
+    $('#lista-extras-alcohol').innerHTML = extras.filter(function (p) { return p.alcohol; })
+      .map(function (p) { return itemHTML(p, false); }).join('');
 
     $$('.item').forEach(function (art) {
       var p = catalogo[art.getAttribute('data-id')];
@@ -236,9 +284,15 @@
       var opc = $('.item-opciones', art);
 
       function actualizarPrecio() {
-        var c = precioUnidad(p, leerCfg(p, form));
+        var cfg = leerCfg(p, form);
+        var c = precioUnidad(p, cfg);
         $('[data-precio]', art).textContent = dinero(c);
         $('[data-precio-btn]', art).textContent = dinero(c);
+        var mitad = $('[data-mitad]', art);
+        if (mitad) {
+          var po = porcionDe(p, cfg);
+          mitad.hidden = !(po && po.mitadYMitad);
+        }
       }
       form.addEventListener('change', actualizarPrecio);
 
@@ -369,27 +423,23 @@
   /* ---------- mensaje de WhatsApp ---------- */
   function mensaje() {
     var c = cuentas();
-    var t = ['¡Hola PikayPasa! Quiero hacer este pedido:', ''];
+    var t = ['¡Hola PikayPasa! Quiero pedir:'];
     pedido.forEach(function (l) {
       var p = catalogo[l.id];
       var n = nombreLinea(p, l.cfg);
       var total = precioUnidad(p, l.cfg) * l.cantidad;
-      t.push('- ' + l.cantidad + ' × ' + n.nombre + (n.detalle ? ' (' + n.detalle + ')' : '') + ': ' + dinero(total));
-      if (n.aderezos.length) t.push('  Aderezos: ' + n.aderezos.join(', '));
+      var ader = n.aderezos.length
+        ? ' · ' + (n.aderezos.length === 1 ? 'aderezo ' : 'aderezos ') + n.aderezos.join(', ')
+        : '';
+      t.push('• ' + l.cantidad + ' × ' + n.nombre + (n.detalle ? ' (' + n.detalle + ')' : '') + ader + ' — ' + dinero(total));
     });
-    t.push('');
     t.push('Subtotal: ' + dinero(c.subtotal));
     if (c.zona.retiro) t.push('Envío: Gratis (retiro)');
     else t.push('Envío (' + c.zona.nombre + '): ' + (c.envio ? dinero(c.envio) : 'Gratis'));
-    t.push('TOTAL: ' + dinero(c.total));
-    t.push('');
+    t.push('Total: ' + dinero(c.total));
     t.push('Nombre: ' + datos.nombre.trim());
-    t.push(c.zona.retiro
-      ? 'Entrega: Retiro en el local'
-      : 'Entrega: Delivery, ' + c.zona.nombre + ', ' + datos.direccion.trim());
+    t.push(c.zona.retiro ? 'Entrega: Retiro en el local' : 'Dirección: ' + datos.direccion.trim());
     if (datos.nota.trim()) t.push('Nota: ' + datos.nota.trim());
-    t.push('');
-    t.push('Quedo atento a la confirmación.');
     return t.join('\n');
   }
 
@@ -525,7 +575,8 @@
     ['#ig-1', '#ig-2'].forEach(function (sel) {
       var a = $(sel);
       a.hidden = !ig;
-      if (ig) {
+      if (!ig) a.removeAttribute('href');
+      else {
         a.href = 'https://instagram.com/' + encodeURIComponent(ig);
         $('.ig-usuario', a).textContent = '@' + ig;
       }

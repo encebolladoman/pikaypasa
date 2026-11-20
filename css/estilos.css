@@ -139,6 +139,10 @@ img, svg { display: block; }
   color: var(--naranja);
   background: var(--negro); padding: 6px 10px; margin-left: -10px;
 }
+.incluye {
+  font-weight: 800; font-size: clamp(1rem, 4.2vw, 1.25rem); line-height: 1.25;
+  color: var(--hueso); background: var(--negro); padding: 6px 10px; margin-left: -10px;
+}
 .horario-corto { font-size: 1rem; color: var(--hueso); background: var(--negro); padding: 4px 10px; margin-left: -10px; }
 .reja-texto .btn { margin-top: 8px; min-width: 220px; }
 
@@ -311,6 +315,13 @@ select option { color: var(--negro); background: var(--hueso); }
 .menu-principal .item-precio { font-size: clamp(2.25rem, 9vw, 3rem); }
 .menu .aviso-18 { color: var(--hueso); }
 .lista-extras .item-nombre { font-size: 1.375rem; }
+.bloque-alcohol { margin-top: 28px; }
+.bloque-alcohol .aviso-18 { margin-bottom: 12px; }
+/* Foto opcional del producto (campo "imagen" en data/menu.js) */
+.item-foto {
+  display: block; width: 100%; max-width: 480px; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+  margin-bottom: 16px; border-radius: var(--radio); background: var(--acero);
+}
 
 /* ---------- Cómo pedir (negro: la ventanilla es la única luz) ---------- */
 .como { background: var(--negro); color: var(--hueso); border-top: var(--borde) solid var(--hueso-linea); }
@@ -328,6 +339,10 @@ select option { color: var(--negro); background: var(--hueso); }
 .pasos strong { color: var(--hueso); }
 .pasos strong { display: block; font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
 
+.nota-alitas {
+  margin-top: 4px; padding-top: 16px; border-top: var(--borde) solid var(--hueso-linea);
+  max-width: 60ch; font-weight: 800; color: var(--hueso);
+}
 .tabla-envios { width: 100%; max-width: 560px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .tabla-envios th { text-align: left; font-weight: 800; font-size: 0.875rem; padding: 0 0 8px; }
 .tabla-envios th:last-child, .tabla-envios td:last-child { text-align: right; }

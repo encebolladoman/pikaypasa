@@ -20,7 +20,7 @@ A catalog that builds a WhatsApp order. The visitor browses combos and menu, ass
 
 ## Positioning
 
-The neighborhood's own street-food window: boneless, chicken tenders and micheladas served from the door of a small local in Cdla. Renacer, with free delivery inside Renacer. It is from the barrio, for the barrio.
+The neighborhood's own street-food window: boneless, wings (alitas) and micheladas served from the door of a small local in Cdla. Renacer, with free delivery inside Renacer. It is from the barrio, for the barrio.
 
 ## Operating Context
 
@@ -34,14 +34,16 @@ The neighborhood's own street-food window: boneless, chicken tenders and michela
 - No online payments, login, accounts or server. Page logic stays minimal: build the message and open WhatsApp.
 - Does not ask for GPS, estimate delivery times, or mark orders as confirmed. After sending it shows: "Te vamos a responder por WhatsApp para confirmar tu pedido y el tiempo de entrega."
 - Cart persists in `localStorage` and empties after sending.
-- Boneless and tenders come with fries and one free 2 oz sauce (BBQ, Hot honey, Ranch, Clásica), natural or bathed in BBQ. BBQ bath has no surcharge (confirmed), kept configurable.
+- Menu updated 20 Nov 2026: the previous chicken strip product was discontinued; wings (alitas: 6, 12, or 24 + 1 L cola, half-and-half flavor allowed on 24) were added, plus water and juices ($0.50, always visible, juice flavors still to confirm).
+- Boneless and alitas come with fries and one free 2 oz sauce (BBQ, Hot honey, Ranch, Clásica), in three flavors: natural, bathed in BBQ or bathed in honey mustard. No surcharge (confirmed), configurable per flavor.
 - Alcohol sale is permitted (confirmed). Alcohol items and "combos con chela" remain hideable with one switch (`mostrarAlcohol`) and carry "Solo para mayores de 18 años".
-- Combo sauce counts: Mixto 2, Pareja 2, Parche 4, Boneless + Chela 1, Tenders + Chela 1, Mixto + Chela 2, Pareja Chelera 2, Parche Chelero 4 (confirmed). Combos let the customer choose natural or BBQ (confirmed).
+- Combo sauce counts: Mixto 2, Pareja 2, Parche 4, Boneless + Chela 1, Alitas + Chela 1, Mixto + Chela 2, Pareja Chelera 2, Parche Chelero 4. Combos with both proteins let the customer choose one flavor for the boneless and one for the alitas. Every combo shows its "por separado" price and saving.
+- Wings take longer to fry; "Cómo pedir" says the time is confirmed by WhatsApp.
 - All copy in Spanish (Ecuador), close and neighborhood tone.
 
 ## Brand Commitments
 
-- Name written PikayPasa; logo is the word PIKAYPASA on one line in Anton, uppercase; on black, PIKAY in bone #EDE6DA and PASA in orange #FF6A13. Text or SVG only, no invented icon. Never the old lowercase "pikay.pasa" or tender icons.
+- Name written PikayPasa; logo is the word PIKAYPASA on one line in Anton, uppercase; on black, PIKAY in bone #EDE6DA and PASA in orange #FF6A13. Text or SVG only, no invented icon. Never the old lowercase "pikay.pasa" or food icons.
 - Palette "Naranja crujiente": black #111111 (main ground), orange #FF6A13 (accents only: buttons, prices, details), bone #EDE6DA (text on black, light grounds), dark orange #C2410C (orange text on light grounds). Never the old mustard/red/brown palette.
 - Type: Anton for the logo only; Sora 800 for headings; Sora 400 for body.
 - Style per brief: dark, high contrast, direct and appetizing; big orange prices, thick buttons, little decoration; fast on a mid-range phone on mobile data.

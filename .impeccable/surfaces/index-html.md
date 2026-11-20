@@ -11,7 +11,7 @@ related_targets: []
 
 ## Audience and job
 
-Families in Renacer and neighboring urbanizations ordering boneless, tenders and micheladas on Friday to Sunday evenings. Action: build a cart and send it as a WhatsApp message. Proof: real menu, real prices, real hours, real address. No photos (owner asked not to generate images yet).
+Families in Renacer and neighboring urbanizations ordering boneless, alitas and micheladas on Friday to Sunday evenings. Action: build a cart and send it as a WhatsApp message. Proof: real menu, real prices, real hours, real address. No photos (owner asked not to generate images yet).
 
 ## Direction contract
 
@@ -21,7 +21,7 @@ OWN-WORLD: Black street at night (#111111), the painted sign band with PIKAYPASA
 
 STORY: The visitor sees the local is open (or when it opens), sees the combos in the window first, picks options, adds to the order, chooses where to deliver, and sends a WhatsApp already written.
 
-FIRST VIEWPORT: Top band: sign with PIKAYPASA large, centered. Middle: the shutter, half raised, a bone tag hanging from it with the live state ("Abierto hasta las 11 pm" or "Ahora cerrado, abrimos hoy/el viernes a las 6 pm"), the line "Boneless, tenders y micheladas en tu urbanización" and "Delivery gratis en Renacer". Bottom: the window opening in bone, the first combos visible with big prices, and a thick orange "Ver menú" button. Fixed bottom bar for the order on phone.
+FIRST VIEWPORT: Top band: sign with PIKAYPASA large, centered. Middle: the shutter, half raised, a bone tag hanging from it with the live state ("Abierto hasta las 11 pm" or "Ahora cerrado, abrimos hoy/el viernes a las 6 pm"), the line "Boneless, alitas y micheladas en tu urbanización" and "Delivery gratis en Renacer". Bottom: the window opening in bone, the first combos visible with big prices, and a thick orange "Ver menú" button. Fixed bottom bar for the order on phone.
 
 FORM: The roll-up shutter and service window, position 1 of the ordered grounded list (IMPECCABLE'S PICK). seed:dbf262acf07b2fae. Signature interaction: the shutter rolls up on load when open (settles in under 700 ms, skipped with reduced motion) and stays down to the state tag when closed; the order panel slides up from the counter like the ticket passed through the window. Motion grammar: vertical only, things rise and drop like the shutter.
 

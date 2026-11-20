@@ -3,19 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>PikayPasa · Boneless, tenders y micheladas en Renacer</title>
-  <meta name="description" content="Boneless, tenders y micheladas en tu urbanización. Pide por WhatsApp. Delivery gratis en Renacer. Viernes, sábado y domingo, de 6 a 11 pm.">
+  <title>PikayPasa · Boneless, alitas y micheladas en Renacer</title>
+  <meta name="description" content="Boneless y alitas con papas y aderezo gratis, naturales o bañados en BBQ o honey mustard. Micheladas. Pide por WhatsApp. Vie, sáb y dom de 6 a 11 pm. Envío gratis en Renacer.">
   <meta name="theme-color" content="#111111">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111111'/%3E%3Crect x='6' y='22' width='20' height='4' fill='%23FF6A13'/%3E%3Crect x='6' y='6' width='20' height='3' fill='%23EDE6DA'/%3E%3Crect x='6' y='12' width='20' height='3' fill='%23EDE6DA'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/favicon-192.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
   <!-- Vista previa al compartir en WhatsApp / redes -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_EC">
+  <meta property="og:url" content="https://pikaypasa.vercel.app/">
   <meta property="og:title" content="PikayPasa">
-  <meta property="og:description" content="Boneless, tenders y micheladas en tu urbanización. Pide por WhatsApp. Delivery gratis en Renacer.">
-  <!-- Cuando tengas la imagen de 1200×630, guárdala como img/og.jpg y quita los dos guiones de abajo:
-  <meta property="og:image" content="img/og.jpg">
-  -->
+  <meta property="og:description" content="Boneless y alitas con papas y aderezo gratis, naturales o bañados en BBQ o honey mustard. Micheladas. Pide por WhatsApp. Vie, sáb y dom de 6 a 11 pm. Envío gratis en Renacer.">
+  <meta property="og:image" content="https://pikaypasa.vercel.app/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PikayPasa: boneless, alitas y micheladas. Pide por WhatsApp.">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +39,8 @@
   <section class="frente" aria-label="Inicio">
     <div class="reja" id="reja">
       <div class="reja-texto contenedor">
-        <p class="lema">Boneless, tenders y micheladas en tu urbanización</p>
+        <p class="lema">Boneless, alitas y micheladas en tu urbanización</p>
+        <p class="incluye">Todo viene con papas + 1 aderezo gratis</p>
         <p class="gratis">Delivery gratis en Renacer</p>
         <p class="horario-corto" data-texto="horarioCorto"></p>
         <a class="btn btn-grande" href="#combos">Ver menú</a>
@@ -49,7 +55,7 @@
       <a href="#combos">Combos</a>
       <a href="#chela" data-alcohol>Con chela</a>
       <a href="#p-boneless">Boneless</a>
-      <a href="#p-tenders">Tenders</a>
+      <a href="#p-alitas">Alitas</a>
       <a href="#extras">Extras y bebidas</a>
       <a href="#como-pedir">Cómo pedir</a>
       <a href="#ubicacion">Ubicación</a>
@@ -78,8 +84,12 @@
         <div class="menu-principal" id="menu-principal"></div>
 
         <h3 class="subtitulo" id="extras">Extras y bebidas</h3>
-        <p class="aviso-18" data-alcohol><span class="sello-18">+18</span> Micheladas y cervezas: solo para mayores de 18 años.</p>
         <div class="lista lista-extras" id="lista-extras"></div>
+
+        <div class="bloque-alcohol" data-alcohol>
+          <p class="aviso-18"><span class="sello-18">+18</span> Micheladas y cervezas: solo para mayores de 18 años.</p>
+          <div class="lista lista-extras" id="lista-extras-alcohol"></div>
+        </div>
       </div>
     </section>
 
@@ -92,6 +102,7 @@
           <li><span><strong>Envíalo por WhatsApp.</strong> El mensaje sale ya escrito, solo le das a enviar.</span></li>
           <li><span><strong>Te confirmamos.</strong> Te respondemos por WhatsApp con la confirmación y el tiempo de entrega.</span></li>
         </ol>
+        <p class="nota-alitas">Las alitas tardan un poco más; te confirmamos el tiempo por WhatsApp.</p>
 
         <h3 class="subtitulo">Costo de envío</h3>
         <table class="tabla-envios">
@@ -117,11 +128,11 @@
           </p>
         </div>
         <div class="ubicacion-acciones">
-          <a class="btn btn-grande" id="wa-general" href="#" target="_blank" rel="noopener">
+          <a class="btn btn-grande" id="wa-general" href="https://wa.me/593990204178" target="_blank" rel="noopener">
             <svg class="ico ico-wa" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-wa"/></svg>
             <span>Escríbenos al <span data-texto="whatsappVisible"></span></span>
           </a>
-          <a class="enlace-ig" id="ig-1" href="#" target="_blank" rel="noopener" hidden>
+          <a class="enlace-ig" id="ig-1" target="_blank" rel="noopener" hidden>
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6"/></svg>
             <span class="ig-usuario"></span>
           </a>
@@ -136,8 +147,8 @@
     <div class="contenedor pie-contenido">
       <p class="logo logo-pie" aria-label="PikayPasa"><span class="logo-pikay">PIKAY</span><span class="logo-pasa">PASA</span></p>
       <p class="pie-datos">
-        <a id="wa-pie" href="#" target="_blank" rel="noopener">WhatsApp&nbsp;<span data-texto="whatsappVisible"></span></a>
-        <a id="ig-2" href="#" target="_blank" rel="noopener" hidden>Instagram&nbsp;<span class="ig-usuario"></span></a>
+        <a id="wa-pie" href="https://wa.me/593990204178" target="_blank" rel="noopener">WhatsApp&nbsp;<span data-texto="whatsappVisible"></span></a>
+        <a id="ig-2" target="_blank" rel="noopener" hidden>Instagram&nbsp;<span class="ig-usuario"></span></a>
       </p>
       <p class="pie-18" data-alcohol><span class="sello-18">+18</span> Solo para mayores de 18 años.</p>
       <p class="pie-anio">© <span id="anio"></span> PikayPasa · <span data-texto="direccionCompleta"></span></p>
@@ -150,7 +161,7 @@
   </svg>
 
   <!-- ============ WHATSAPP FLOTANTE ============ -->
-  <a class="wa-flotante" id="wa-flotante" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <a class="wa-flotante" id="wa-flotante" href="https://wa.me/593990204178" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
     <svg class="ico-wa" viewBox="0 0 24 24" aria-hidden="true"><use href="#logo-wa"/></svg>
   </a>
 
@@ -211,7 +222,7 @@
     <div class="enviado" id="enviado" hidden>
       <p class="enviado-titulo">¡Tu pedido salió para WhatsApp!</p>
       <p>Te vamos a responder por WhatsApp para confirmar tu pedido y el tiempo de entrega.</p>
-      <p class="enviado-sub">¿No se abrió el chat? <a id="reabrir" href="#" target="_blank" rel="noopener">Ábrelo otra vez con tu pedido</a>.</p>
+      <p class="enviado-sub">¿No se abrió el chat? <a id="reabrir" href="https://wa.me/593990204178" target="_blank" rel="noopener">Ábrelo otra vez con tu pedido</a>.</p>
       <button class="btn btn-grande" type="button" id="seguir">Listo</button>
     </div>
   </dialog>
